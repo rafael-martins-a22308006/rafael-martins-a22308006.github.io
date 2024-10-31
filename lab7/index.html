@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos em JavaScript</title>
+    <title>Exemplo de Eventos em JavaScript</title>
     <style>
         /* Estilos básicos */
         body {
             font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
@@ -16,14 +17,13 @@
             background-color: #f5f5f5;
         }
 
-        #app {
-            text-align: center;
+        .botao, .input-text {
+            margin: 10px 0;
+            padding: 10px 20px;
+            font-size: 16px;
         }
 
         .botao {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-top: 20px;
             cursor: pointer;
             background-color: #4CAF50;
             color: white;
@@ -39,32 +39,19 @@
 </head>
 <body>
 
-    <div id="app">
-        <h1>Interaja com Eventos!</h1>
-        <button id="botao" class="botao">Clique em mim!</button>
-        <p id="mensagem"></p>
-    </div>
+    <h1>Exemplo de Eventos em JavaScript</h1>
+    
+    <input type="text" id="inputText" class="input-text" placeholder="Digite algo...">
+    <button id="button" class="botao">Clique aqui!</button>
+    <button id="dblClickButton" class="botao">Clique duas vezes</button>
+    <button id="mouseButton" class="botao">Passe o mouse</button>
+    <p id="mensagem"></p>
 
     <script>
-        // Elementos da página
-        const botao = document.getElementById('botao');
-        const mensagem = document.getElementById('mensagem');
+        const a=document.getElementById("botao");
 
-        // Evento de clique
-        botao.addEventListener('click', () => {
-            mensagem.textContent = "Você clicou no botão!";
-            setTimeout(() => {
-                mensagem.textContent = ""; // Limpa a mensagem após 2 segundos
-            }, 2000);
-        });
-
-        // Exemplo de outro evento: mouseover
         botao.addEventListener('mouseover', () => {
-            mensagem.textContent = "Você passou o mouse sobre o botão!";
-        });
-
-        botao.addEventListener('mouseout', () => {
-            mensagem.textContent = "";
+            mensagem.textContent = "passate por cima";
         });
     </script>
 
