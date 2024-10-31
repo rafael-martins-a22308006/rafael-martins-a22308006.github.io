@@ -1,22 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desenvlvimento interface web</title>
+    <title>Exemplo de Eventos em JavaScript</title>
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        .botao, .input-text {
+            margin: 10px 0;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .botao {
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .botao:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>Test</h1>
-    <p>Eis a minha primeira pagina web!</p>
-    <p>Na unidade curricular de <a href="https://moodle.ensinolusofona.pt/course/view.php?id=28717">Desenvolvimento de interfaces web </a> abordaremos as seguintes tecnologias web &#127760;:</p>
-    <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>JavaScript</li>
-        <li>React e Next.js</li>
-    </ul>
-    <p>Iremos criar soluções criativas</p>
 
-    <img  src="images/diw.svg" alt="Desenvolvimento de Interfaces Web">
+    <h1>Exemplo de Eventos em JavaScript</h1>
+    
+    <input type="text" id="inputText" class="input-text" placeholder="Digite algo...">
+    <button id="botao" class="botao">Clique aqui!</button>
+    <button id="dblClickBotao" class="botao">Clique duas vezes</button>
+    <button id="mouseBotao" class="botao">Passe o mouse</button>
+    <p id="mensagem"></p>
+
+    <script>
+        // Elementos
+        const inputText = document.getElementById('inputText');
+        const botao = document.getElementById('botao');
+        const dblClickBotao = document.getElementById('dblClickBotao');
+        const mouseBotao = document.getElementById('mouseBotao');
+        const mensagem = document.getElementById('mensagem');
+
+        // Evento 1: click
+        botao.addEventListener('click', () => {
+            mensagem.textContent = "Você clicou no botão!";
+        });
+
+        // Evento 2: focus (quando o campo de texto recebe o foco)
+        inputText.addEventListener('focus', () => {
+            mensagem.textContent = "Você selecionou o campo de texto.";
+        });
+
+        // Evento 3: blur (quando o campo de texto perde o foco)
+        inputText.addEventListener('blur', () => {
+            mensagem.textContent = "Você saiu do campo de texto.";
+        });
+
+        // Evento 4: dblclick (clique duplo no botão)
+        dblClickBotao.addEventListener('dblclick', () => {
+            mensagem.textContent = "Você deu um clique duplo!";
+        });
+
+        // Evento 5: mouseover e mouseout (passar o mouse sobre um botão e sair)
+        mouseBotao.addEventListener('mouseover', () => {
+            mensagem.textContent = "O mouse está sobre o botão!";
+        });
+        mouseBotao.addEventListener('mouseout', () => {
+            mensagem.textContent = "O mouse saiu do botão.";
+        });
+    </script>
+
 </body>
 </html>
