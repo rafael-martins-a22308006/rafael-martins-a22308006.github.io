@@ -1,72 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos em JavaScript</title>
-    <style>
-        /* Estilos básicos */
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f5f5f5;
-        }
-
-        #app {
-            text-align: center;
-        }
-
-        .botao {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-top: 20px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .botao:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Desenvlvimento interface web</title>
 </head>
 <body>
+    <h1>Test</h1>
+    <p>Eis a minha primeira pagina web!</p>
+    <p>Na unidade curricular de <a href="https://moodle.ensinolusofona.pt/course/view.php?id=28717">Desenvolvimento de interfaces web </a> abordaremos as seguintes tecnologias web &#127760;:</p>
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JavaScript</li>
+        <li>React e Next.js</li>
+    </ul>
+    <p>Iremos criar soluções criativas</p>
 
-    <div id="app">
-        <h1>Interaja com Eventos!</h1>
-        <button id="botao" class="botao">Clique em mim!</button>
-        <p id="mensagem"></p>
-    </div>
-
-    <script>
-        // Elementos da página
-        const botao = document.getElementById('botao');
-        const mensagem = document.getElementById('mensagem');
-
-        // Evento de clique
-        botao.addEventListener('click', () => {
-            mensagem.textContent = "Você clicou no botão!";
-            setTimeout(() => {
-                mensagem.textContent = ""; // Limpa a mensagem após 2 segundos
-            }, 2000);
-        });
-
-        // Exemplo de outro evento: mouseover
-        botao.addEventListener('mouseover', () => {
-            mensagem.textContent = "Você passou o mouse sobre o botão!";
-        });
-
-        botao.addEventListener('mouseout', () => {
-            mensagem.textContent = "";
-        });
-    </script>
-
+    <img  src="images/diw.svg" alt="Desenvolvimento de Interfaces Web">
 </body>
 </html>
