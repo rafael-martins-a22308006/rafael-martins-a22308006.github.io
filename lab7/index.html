@@ -41,10 +41,10 @@
 
     <h1>Exemplo de Eventos em JavaScript</h1>
     
-    <input type="text" id="inputText" class="input-text" placeholder="Digite algo...">
-    <button id="botao" class="botao">Clique aqui!</button>
-    <button id="dblClickBotao" class="botao">Clique duas vezes</button>
-    <button id="mouseBotao" class="botao">Passe o mouse</button>
+    <input type="text" id="inputText" class="input-text" placeholder="Escreve algo">
+    <button id="botao" class="botao">Clica aqui!</button>
+    <button id="dblClickBotao" class="botao">Clica duas vezes</button>
+    <button id="mouseBotao" class="botao">Passa o rato</button>
     <p id="mensagem"></p>
 
     <script>
@@ -57,30 +57,30 @@
 
         // Evento 1: click
         botao.addEventListener('click', () => {
-            mensagem.textContent = "Você clicou no botão!";
+            mensagem.textContent = "Clicaste no botao!";
         });
 
         // Evento 2: focus (quando o campo de texto recebe o foco)
         inputText.addEventListener('focus', () => {
-            mensagem.textContent = "Você selecionou o campo de texto.";
+            mensagem.textContent = "Quiseste ecrever algo.";
         });
 
         // Evento 3: blur (quando o campo de texto perde o foco)
         inputText.addEventListener('blur', () => {
-            mensagem.textContent = "Você saiu do campo de texto.";
+            mensagem.textContent = "saiste da escrita.";
         });
 
         // Evento 4: dblclick (clique duplo no botão)
         dblClickBotao.addEventListener('dblclick', () => {
-            mensagem.textContent = "Você deu um clique duplo!";
+            mensagem.textContent = "clicaste duas vezes!";
         });
 
         // Evento 5: mouseover e mouseout (passar o mouse sobre um botão e sair)
         mouseBotao.addEventListener('mouseover', () => {
-            mensagem.textContent = "O mouse está sobre o botão!";
+            mensagem.textContent = "o rato esta sobre o botao!";
         });
         mouseBotao.addEventListener('mouseout', () => {
-            mensagem.textContent = "O mouse saiu do botão.";
+            mensagem.textContent = "o rato saiu do botao.";
         });
     </script>
 
