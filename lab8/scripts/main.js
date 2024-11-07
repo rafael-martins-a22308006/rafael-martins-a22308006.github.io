@@ -11,10 +11,13 @@ function submitColor() {
 function count() {
     let counter = 0;
    const heading = document.querySelector('h1');
-   function count() {
       counter++;
       heading.textContent = counter;
-   } 
+
 }
+function vermelho(){
+    const button=document.querySelector('red')
+    button.backgroundColor="red";
+   }
 
 
