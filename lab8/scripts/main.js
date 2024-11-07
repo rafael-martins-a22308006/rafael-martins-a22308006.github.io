@@ -1,23 +1,7 @@
 
-function changeColor(color) {
-    document.getElementById("colorBox").style.backgroundColor = color;
-}
-
-function submitColor() {
-    const color = document.getElementById("colorInput").value.toLowerCase();
-    changeColor(color);
-}
-
-function count() {
-    let counter = 0;
-   const heading = document.querySelector('h1');
-      counter++;
-      heading.textContent = counter;
-
-}
-function vermelho(){
-    const button=document.querySelector('red')
-    button.backgroundColor="red";
-   }
-
-
+document.querySelectorAll("#color").forEach((e) => {
+    button.addEventListener("click", () => {
+        const color = button.dataset.color; // Acessa a cor armazenada em data-color
+        document.getElementById("colorBox").style.backgroundColor = color; // Aplica a cor ao elemento
+    });
+})
