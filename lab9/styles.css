@@ -1,5 +1,5 @@
-  /* Estilos básicos */
-  body {
+/* Estilos básicos */
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -29,14 +29,15 @@ nav ul li a {
     text-decoration: none;
 }
 
-.container {
+.produtos-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 20px;
+    gap: 20px;  /* Espaçamento entre os produtos */
 }
 
-.product, .cart-item {
+.produto, .produto-no-cesto {
     background: #f4f4f4;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -47,23 +48,20 @@ nav ul li a {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.product img {
+.produto img {
     width: 100%;
     height: auto;
     border-radius: 8px;
 }
 
-.cart {
-    width: 300px;
-    margin: 20px;
+footer {
+    background-color: #333;
+    color: white;
+    padding: 15px 0;
+    margin-top: 20px;
 }
 
-.cart ul {
-    padding: 0;
-    list-style: none;
-}
-
-.cart ul li {
-    display: flex;
-    justify-content: space-between;
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
 }

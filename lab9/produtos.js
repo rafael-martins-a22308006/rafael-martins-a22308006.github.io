@@ -239,4 +239,6 @@ const produtos = [
         "count": 145
       }
     }
+
   ]
+  export default produtos;
