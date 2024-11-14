@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Online</title>
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header, footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .product, .cart-item {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px;
+            width: 220px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .cart {
+            width: 300px;
+            margin: 20px;
+        }
+
+        .cart ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        .cart ul li {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Minha Loja Online</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#cesto">Cesto</a></li>
+        <li><a href="#contato">Contato</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section id="produtos">
+        <h2>Lista de Produtos</h2>
+        <div class="container" id="produtos-lista">
+            <!-- Produtos serão inseridos dinamicamente aqui -->
+        </div>
+    </section>
+
+    <section id="cesto" class="cart">
+        <h2>Cesto de Compras</h2>
+        <ul id="cesto-lista">
+            <!-- Itens do cesto serão inseridos aqui -->
+        </ul>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Minha Loja Online</p>
+</footer>
+
+<script>
+// Produtos de exemplo
+const produtos = [
+    { id: 1, nome: "Produto 1", imagem: "produto1.jpg", preco: "€20" },
+    { id: 2, nome: "Produto 2", imagem: "produto2.jpg", preco: "€30" },
+    { id: 3, nome: "Produto 3", imagem: "produto3.jpg", preco: "€25" }
+];
+
+const produtosLista = document.getElementById('produtos-lista');
+const cestoLista = document.getElementById('cesto-lista');
+
+// Função para renderizar os produtos
+function renderizarProdutos() {
+    produtosLista.innerHTML = ''; // Limpa a lista antes de renderizar
+    produtos.forEach(produto => {
+        const article = document.createElement('article');
+        article.classList.add('product');
+        article.innerHTML = `
+            <img src="${produto.imagem}" alt="Imagem de ${produto.nome}">
+            <h3>${produto.nome}</h3>
+            <p>Preço: ${produto.preco}</p>
+            <button onclick="adicionarAoCesto(${produto.id})">Adicionar ao Cesto</button>
+        `;
+        produtosLista.appendChild(article);
+    });
+}
+
+// Função para adicionar produtos ao cesto
+function adicionarAoCesto(idProduto) {
+    const produto = produtos.find(p => p.id === idProduto);
+    const li = document.createElement('li');
+    li.classList.add('cart-item');
+    li.innerHTML = `
+        <span>${produto.nome}</span>
+        <span>${produto.preco}</span>
+    `;
+    cestoLista.appendChild(li);
+}
+
+// Inicializando a renderização dos produtos
+renderizarProdutos();
+</script>
+
+</body>
+</html>
