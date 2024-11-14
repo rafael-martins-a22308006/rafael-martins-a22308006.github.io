@@ -2,6 +2,7 @@ import produtos from './produtos.js';
 function renderizarProdutos() {
      
     produtos.forEach(produto => {
+        console.log(produto);
         const article = document.createElement('article');
         article.classList.add('produto');
         article.innerHTML = `
@@ -14,4 +15,6 @@ function renderizarProdutos() {
     });
 }
 
-renderizarProdutos();
+document.addEventListener('DOMContentLoaded', () => {
+    carregarProdutos(produtos); 
+});
