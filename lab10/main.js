@@ -1,4 +1,9 @@
-import produtos from './produtos.js';
+fetch('https://deisishop.pythonanywhere.com/#/shop/getProducts')
+    .then(Response=>Response.json())
+    .then(data=>console.log(data))
+    .catch(error=> console.error('Error',error));
+
+
 function renderizarProdutos() {
      
     produtos.forEach(produto => {
