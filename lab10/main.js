@@ -1,7 +1,9 @@
 
 fetch('https://deisishop.pythonanywhere.com/#/shop/getProducts')
 .then(Response=>Response.json())
-.then(data=>console.log(data))
+.then(data=>{console.log(data)
+    carregarProdutos(data);
+})
 .catch(error=> console.error('Error',error));
 
 
