@@ -1,5 +1,5 @@
 
-fetch('https://deisishop.pythonanywhere.com/#/shop/getProducts')
+fetch('https://deisishop.pythonanywhere.com/products/')
 .then(Response=>Response.json())
 .then(data=>{console.log(data)
     carregarProdutos(data);
@@ -38,17 +38,16 @@ function criarProduto(produto) {
 
     // Adiciona o evento ao botão
     botaoAdicionar.addEventListener('click', () => {
-        // Recupera a lista de produtos selecionados do localStorage
+        // vai buscar a lista guardada no storage
         let produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados'));
         
         // Adiciona o produto à lista
         produtosSelecionados.push(produto);
         
-        // Salva a lista de volta ao localStorage
+        // guarda a lista de volta ao localStorage
         localStorage.setItem('produtos-selecionados', JSON.stringify(produtosSelecionados));
 
-        // Opcional: Confirmar que o produto foi adicionado
-        alert(`${produto.title} foi adicionado ao cesto!`);
+       
     });
     
     // Adiciona os elementos ao <article>
