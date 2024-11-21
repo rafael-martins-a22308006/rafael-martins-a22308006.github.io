@@ -1,27 +1,67 @@
+
 fetch('https://deisishop.pythonanywhere.com/#/shop/getProducts')
-    .then(Response=>Response.json())
-    .then(data=>console.log(data))
-    .catch(error=> console.error('Error',error));
+.then(Response=>Response.json())
+.then(data=>console.log(data))
+.catch(error=> console.error('Error',error));
 
 
-function renderizarProdutos() {
-     
-    produtos.forEach(produto => {
-        console.log(produto);
-        const article = document.createElement('article');
-        article.classList.add('produto');
-        article.innerHTML = `
-            <img src="${produto.imagem}" alt="Imagem de ${produto.nome}">
-            <h3>${produto.nome}</h3>
-            <p>Preço: ${produto.preco}</p>
-            <button onclick="adicionarAoCesto(${produto.id})">Adicionar ao Cesto</button>
-        `;
-        produtosContainer.appendChild(article);
+if (!localStorage.getItem('produtos-selecionados')) {
+    localStorage.setItem('produtos-selecionados', JSON.stringify([]));
+}
+
+function criarProduto(produto) {
+    // Cria o elemento <article>
+    const artigo = document.createElement('article');
+    
+    // Cria o título do produto (<h2>)
+    const titulo = document.createElement('h2');
+    titulo.textContent = produto.title;
+    
+    // Cria a imagem do produto (<img>)
+    const imagem = document.createElement('img');
+    imagem.src = produto.imagem;
+    imagem.alt = produto.title;
+    
+    // Cria a descrição do produto (<p>)
+    const descricao = document.createElement('p');
+    descricao.textContent = produto.descricao;
+    
+    // Cria o preço do produto (<span>)
+    const preco = document.createElement('span');
+    preco.textContent = `Preço: ${produto.preco}€`;
+    
+    // Cria o botão "+ Adicionar ao cesto"
+    const botaoAdicionar = document.createElement('button');
+    botaoAdicionar.textContent = '+ Adicionar ao cesto';
+
+    // Adiciona o evento ao botão
+    botaoAdicionar.addEventListener('click', () => {
+        // Recupera a lista de produtos selecionados do localStorage
+        let produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados'));
+        
+        // Adiciona o produto à lista
+        produtosSelecionados.push(produto);
+        
+        // Salva a lista de volta ao localStorage
+        localStorage.setItem('produtos-selecionados', JSON.stringify(produtosSelecionados));
+
+        // Opcional: Confirmar que o produto foi adicionado
+        alert(`${produto.title} foi adicionado ao cesto!`);
     });
+    
+    // Adiciona os elementos ao <article>
+    artigo.appendChild(titulo);
+    artigo.appendChild(imagem);
+    artigo.appendChild(descricao);
+    artigo.appendChild(preco);
+    artigo.appendChild(botaoAdicionar);
+    
+    // Retorna o <article> criado
+    return artigo;
 }
 
 function carregarProdutos(produtos) {
-    // Selecione o elemento pai onde os artigos serão inseridos (suponhamos que seja uma div com id 'produtos')
+    // Selecione o elemento pai onde os artigos serão inseridos
     const container = document.getElementById('produtos');
     
     // Percorre a lista de produtos com forEach
@@ -33,40 +73,3 @@ function carregarProdutos(produtos) {
         container.appendChild(artigo);
     });
 }
-
-
-function criarProduto(produto) {
-    // Cria o elemento <article>
-    const artigo = document.createElement('article');
-    
-    // Cria o título do produto (<h2>)
-    const titulo = document.createElement('h2');
-    titulo.textContent = produto.titulo;
-    
-    // Cria a imagem do produto (<img>)
-    const imagem = document.createElement('img');
-    imagem.src = produto.imagem;
-    imagem.alt = produto.titulo;
-    
-    // Cria a descrição do produto (<p>)
-    const descricao = document.createElement('p');
-    descricao.textContent = produto.descricao;
-    
-    // Cria o preço do produto (<span>)
-    const preco = document.createElement('span');
-    preco.textContent = `Preço: ${produto.preco}€`;
-    
-    // Adiciona os elementos ao <article>
-    artigo.appendChild(titulo);
-    artigo.appendChild(imagem);
-    artigo.appendChild(descricao);
-    artigo.appendChild(preco);
-    
-    // Retorna o <article> criado
-    return artigo;
-}
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    carregarProdutos(produtos); 
-});
