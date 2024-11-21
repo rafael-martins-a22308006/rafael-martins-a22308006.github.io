@@ -13,11 +13,17 @@ header, footer {
     padding: 10px;
 }
 
+nav {
+    background-color: #444;
+    color: white;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
 nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    padding: 0;
 }
 
 nav ul li {
@@ -27,6 +33,12 @@ nav ul li {
 nav ul li a {
     color: white;
     text-decoration: none;
+    font-size: 1.1em;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #f4f4f4;
 }
 
 .produtos-container {
