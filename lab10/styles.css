@@ -98,10 +98,19 @@ nav ul li a:hover {
 }
 
 #produtos {
-    display: grid; /* Ativa o grid layout */
-    grid-template-columns: repeat(3, 1fr); /* 3 colunas de tamanhos iguais */
+    display: grid; /* Configura layout como grid */
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
     gap: 20px; /* Espaço entre os itens */
+    justify-content: center; /* Centraliza os itens no contêiner */
     padding: 20px;
+    margin: 0 auto; /* Centraliza horizontalmente o contêiner */
+    max-width: 1200px; /* Limita a largura máxima *m/
+}
+
+#produtos > article {
+    text-align: center; 
+    max-width: 300px; 
+    margin: 0 auto; 
 }
 
 .produto {
