@@ -44,7 +44,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: rgb(0, 0, 0);
+    color: rgb(255, 248, 248);
     text-decoration: none;
     font-weight: bold;
     padding: 5px 10px;
@@ -106,21 +106,89 @@ nav ul li a:hover {
     margin: 10px 0;
 }
 
+/* Configuração do contêiner dos produtos */
 #produtos {
-    display: grid; /* Configura layout como grid */
-    grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+    display: grid; /* Configura o layout como grid */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Cards adaptáveis */
     gap: 20px; /* Espaço entre os itens */
-    justify-content: center; /* Centraliza os itens no contêiner */
+    justify-content: center; /* Centraliza os produtos */
     padding: 20px;
-    margin: 0 auto; /* Centraliza horizontalmente o contêiner */
-    max-width: 1200px; 
+    margin: 0 auto;
+    max-width: 1200px; /* Largura máxima */
 }
 
+/* Estilização dos artigos (cards dos produtos) */
 #produtos > article {
-    text-align: center; 
-    max-width: 300px; 
-    margin: 0 auto; 
+    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco com transparência */
+    border: 1px solid #ddd; /* Borda leve */
+    border-radius: 12px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 15px;
+    text-align: center; /* Centraliza o conteúdo */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animações */
 }
+
+/* Efeito de hover nos cards */
+#produtos > article:hover {
+    transform: scale(1.03); /* Aumenta levemente */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais forte */
+}
+
+/* Estilização da imagem */
+#produtos > article img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; /* Bordas arredondadas na imagem */
+    margin-bottom: 10px;
+}
+
+/* Estilização do título */
+#produtos > article h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Estilização do preço */
+#produtos > article span {
+    font-size: 1.2rem;
+    color: #555;
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* Descrição do produto */
+#produtos > article p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 15px;
+    text-align: justify; /* Justifica o texto */
+}
+
+/* Botão de adicionar ao cesto */
+#produtos > article button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#produtos > article button:hover {
+    background-color: #0056b3; /* Tom mais escuro */
+    transform: scale(1.05);
+}
+
+#produtos > article button:active {
+    background-color: #003d80; /* Tom ainda mais escuro */
+    transform: scale(0.95);
+}
+
 
 .produto {
     background: #f4f4f4;
@@ -167,3 +235,6 @@ h2 {
     font-size: 24px;
     color: #444;
 }
+
+
+
