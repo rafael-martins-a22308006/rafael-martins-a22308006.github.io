@@ -1,9 +1,9 @@
 
 fetch('https://deisishop.pythonanywhere.com/products/')
 .then(Response=>Response.json())
-.then(data=>{console.log(data)
+.then(data=>{let produtos = [];
     carregarProdutos(data);
-   
+    produtos = data;
 })
 .catch(error=> console.error('Error',error));
 
@@ -13,10 +13,12 @@ if (!localStorage.getItem('produtos-selecionados')) {
 }
 // Carrega todos os produtos ao carregar a página
 window.onload = () => {
+    if (produtos.length > 0) {
+        carregarProdutos(produtos); 
+    }
     criarProduto(produtos);
     atualizarCustoTotal();
 };
-
 
 function criarProduto(produto) {
     // Cria o elemento <article>
@@ -237,16 +239,35 @@ function aplicarDesconto() {
 
 function filtrarProdutosPorCategoria() {
     const categoriaSelecionada = document.getElementById('categoriaSelect').value;
-    
-    // Se a categoria selecionada for "todos", exibe todos os produtos
-    const produtosFiltrados = categoriaSelecionada === "todos" ? produtos : produtos.filter(produto => produto.category === categoriaSelecionada);
-    
-    criarProduto(produtosFiltrados);
+
+    // Filtra os produtos pela categoria
+    const produtosFiltrados = categoriaSelecionada === "todos" 
+    ? produtos 
+    : produtos.filter(produto => produto.category.toLowerCase() === categoriaSelecionada.toLowerCase());
+
+    // Carrega os produtos filtrados
+    carregarProdutos(produtosFiltrados);
 }
 
 // Adiciona um evento para atualizar os produtos filtrados sempre que a categoria for alterada
 document.getElementById('categoriaSelect').addEventListener('change', filtrarProdutosPorCategoria);
 
+function ordenarProdutosPorPreco() {
+    const ordenarValor = document.getElementById('ordenarSelect').value;
+    
+    let produtosOrdenados = [...produtos]; // Cria uma cópia dos produtos para não modificar o original
+    
+    // Ordena os produtos conforme a opção escolhida
+    if (ordenarValor === 'preco-asc') {
+        produtosOrdenados.sort((a, b) => a.price - b.price);
+    } else if (ordenarValor === 'preco-desc') {
+        produtosOrdenados.sort((a, b) => b.price - a.price);
+    }
+    
+    // Carrega os produtos ordenados
+    carregarProdutos(produtosOrdenados);
+}
+document.getElementById('ordenarSelect').addEventListener('change', ordenarProdutosPorPreco);
 
 
 
