@@ -64,13 +64,18 @@ function criarProduto(produto) {
 function carregarProdutos(produtos) {
     // Selecione o elemento pai onde os artigos serão inseridos
     const container = document.getElementById('produtos');
-    
-    // Percorre a lista de produtos com forEach
-    produtos.forEach((produto) => {
-        // Cria o artigo para o produto
+    let linhaAtual;
+
+    produtos.forEach((produto, index) => {
+        // Cria uma nova linha a cada 3 produtos
+        if (index % 3 === 0) {
+            linhaAtual = document.createElement('div');
+            linhaAtual.className = 'linha-produtos'; // Classe para estilização
+            container.appendChild(linhaAtual);
+        }
+
+        // Cria o artigo do produto e adiciona à linha atual
         const artigo = criarProduto(produto);
-        
-        // Adiciona o artigo no elemento pai
-        container.appendChild(artigo);
+        linhaAtual.appendChild(artigo);
     });
 }
