@@ -237,4 +237,73 @@ h2 {
 }
 
 
+#cesto {
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 20px; 
+    justify-content: center; 
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#cesto article {
+    flex: 1 1 calc(33.33% - 20px);
+    max-width: calc(33.33% - 20px); 
+    box-sizing: border-box; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+
+#cesto article:hover {
+    transform: scale(1.02);
+    border-color: #999;
+}
+
+
+#cesto article img {
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+#cesto article h4 {
+    font-size: 1.2em;
+    color: #333;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+
+#cesto article p {
+    font-size: 0.95em;
+    color: #555;
+    margin: 0 0 8px;
+    text-align: center;
+}
+
+
+#cesto article span {
+    font-size: 1em;
+    font-weight: bold;
+    color: #007bff;
+    margin-top: auto;
+}
+
+
+
 

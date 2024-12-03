@@ -48,7 +48,7 @@ function criarProduto(produto) {
         
         // Guarda a lista de volta ao localStorage
         localStorage.setItem('produtos-selecionados', JSON.stringify(produtosSelecionados));
-        mostrarCesto();
+        
     });
     
     // Adiciona os elementos ao <article>
@@ -73,7 +73,9 @@ function carregarProdutos(produtos) {
         
         // Adiciona o artigo no elemento pai
         container.appendChild(artigo);
+       
     });
+    mostrarCesto();
 }
 
 function mostrarCesto() {
@@ -90,30 +92,40 @@ function mostrarCesto() {
         const titulo = document.createElement('h4');
         titulo.textContent = produto.title;
 
+        const imagem = document.createElement('img');
+        imagem.src = produto.image ? produto.image : 'default-image.jpg'; // Atribui uma imagem padrão caso não tenha
+        imagem.alt = produto.title;
+
         const descricao = document.createElement('p');
         descricao.textContent = produto.description;
 
         const preco = document.createElement('span');
         preco.textContent = `Preço: ${produto.price}€`;
 
+        const botaoRemover = document.createElement('button');
+        botaoRemover.textContent = '+ Remover do carrinho';
+        botaoRemover.onclick = () => removerProdutoDoCesto(index);
+        
         // Adiciona os elementos ao artigo do cesto
         artigo.appendChild(titulo);
+        artigo.appendChild(imagem);
         artigo.appendChild(descricao);
         artigo.appendChild(preco);
+        artigo.appendChild(botaoRemover);
 
         cestoContainer.appendChild(artigo);
     });
 }
-
-function adicionarAoCesto(produto) {
+function removerProdutoDoCesto(index) {
     const produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados')) || [];
     
-    // Verifica se o produto já está no carrinho para evitar duplicados
-    if (!produtosSelecionados.find(p => p.id === produto.id)) {
-        produtosSelecionados.push(produto);
-        localStorage.setItem('produtos-selecionados', JSON.stringify(produtosSelecionados));
-    }
+    // Remove o produto do array pelo índice
+    produtosSelecionados.splice(index, 1);
+
+    // Atualiza o localStorage
+    localStorage.setItem('produtos-selecionados', JSON.stringify(produtosSelecionados));
 
     // Atualiza a exibição do cesto
     mostrarCesto();
 }
+
