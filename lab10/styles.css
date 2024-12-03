@@ -4,20 +4,30 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
+/* Header e Footer */
 header, footer {
     background-color: #333;
     color: white;
     text-align: center;
-    padding: 10px;
+    padding: 15px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+header h1, footer p {
+    margin: 0;
+}
+
+/* Navegação */
 nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
     padding: 0;
+    margin: 10px 0;
 }
 
 nav ul li {
@@ -27,70 +37,99 @@ nav ul li {
 nav ul li a {
     color: white;
     text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
+nav ul li a:hover {
+    background-color: #555;
+    color: #f1f1f1;
+}
+
+/* Container de produtos */
 .produtos-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 20px;
-    gap: 20px;  /* Espaçamento entre os produtos */
+    gap: 20px; /* Espaçamento entre os produtos */
 }
 
+/* Estilo do produto */
 .produto, .produto-no-cesto {
-    background: #f4f4f4;
+    background: linear-gradient(to bottom, #fff, #f4f4f4);
     border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
+    border-radius: 10px;
+    padding: 15px;
     margin: 10px;
     width: 220px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.produto img {
+.produto:hover, .produto-no-cesto:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagem do produto */
+.produto img, .produto-no-cesto img {
     width: 100%;
     height: auto;
     border-radius: 8px;
+    margin-bottom: 10px;
 }
 
-footer {
-    background-color: #333;
-    color: white;
-    padding: 15px 0;
-    margin-top: 20px;
+/* Preço e texto */
+.produto span, .produto-no-cesto span {
+    display: block;
+    font-weight: bold;
+    color: #28a745;
+    margin-bottom: 10px;
 }
 
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
+.produto p, .produto-no-cesto p {
+    font-size: 14px;
+    color: #555;
+    margin: 10px 0;
 }
 
+/* Botões */
 button {
-    background-color: #6c757d; 
+    background: linear-gradient(to bottom, #007bff, #0056b3); 
     color: white;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 button:hover {
-    background-color: #5a6268; 
+    background: linear-gradient(to bottom, #0056b3, #003f7f);
     transform: scale(1.05); 
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
 }
 
 button:active {
-    background-color: #545b62; 
+    background: #003f7f;
     transform: scale(0.95); 
 }
 
 button:focus {
     outline: none; 
-    box-shadow: 0 0 5px #5a6268;
+    box-shadow: 0 0 5px #007bff;
 }
 
-
+/* Títulos */
+h2 {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 24px;
+    color: #444;
+}
