@@ -50,12 +50,12 @@ nav ul li a:hover {
 
 /* Container de produtos */
 .produtos-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas iguais */
+    gap: 20px; /* Espaço entre os itens */
     padding: 20px;
-    gap: 20px; /* Espaçamento entre os produtos */
 }
+
 
 /* Estilo do produto */
 .produto, .produto-no-cesto {
