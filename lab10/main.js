@@ -12,6 +12,7 @@ if (!localStorage.getItem('produtos-selecionados')) {
     localStorage.setItem('produtos-selecionados', JSON.stringify([]));
 }
 
+atualizarCustoTotal();
 
 function criarProduto(produto) {
     // Cria o elemento <article>
@@ -40,16 +41,7 @@ function criarProduto(produto) {
 
     // Adiciona o evento ao botão
     botaoAdicionar.addEventListener('click', () => {
-        // Vai buscar a lista guardada no localStorage
-        let produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados'));
-        
-        // Adiciona o produto à lista
-        produtosSelecionados.push(produto);
-        
-        // Guarda a lista de volta ao localStorage
-        localStorage.setItem('produtos-selecionados', JSON.stringify(produtosSelecionados));
         adicionarAoCesto(produto);
-        
     });
     
     // Adiciona os elementos ao <article>
@@ -87,7 +79,7 @@ function mostrarCesto() {
     cestoContainer.innerHTML = '';
 
     // Exibe os produtos do cesto
-    produtosSelecionados.forEach(produto => {
+    produtosSelecionados.forEach((produto, index)=> {
         const artigo = document.createElement('article');
         
         const titulo = document.createElement('h4');
@@ -97,8 +89,6 @@ function mostrarCesto() {
         imagem.src = produto.image ? produto.image : 'default-image.jpg'; // Atribui uma imagem padrão caso não tenha
         imagem.alt = produto.title;
 
-        const descricao = document.createElement('p');
-        descricao.textContent = produto.description;
 
         const preco = document.createElement('span');
         preco.textContent = `Preço: ${produto.price}€`;
@@ -110,27 +100,30 @@ function mostrarCesto() {
         // Adiciona os elementos ao artigo do cesto
         artigo.appendChild(titulo);
         artigo.appendChild(imagem);
-        artigo.appendChild(descricao);
         artigo.appendChild(preco);
         artigo.appendChild(botaoRemover);
 
         cestoContainer.appendChild(artigo);
     })
-
-    function adicionarAoCesto(produto) {
-        // Recupera os produtos já armazenados no localStorage
-        const produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados')) || [];
-    
-        // Adiciona o novo produto à lista
-        produtosSelecionados.push(produto);
-    
-        // Atualiza o localStorage
-        localStorage.setItem('produtos-selecionados', JSON.stringify(produtosSelecionados));
-    
-        // Atualiza a exibição do cesto imediatamente
-        mostrarCesto();
-    }
+   
 }
+
+function adicionarAoCesto(produto) {
+    // Recupera os produtos já armazenados no localStorage
+    const produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados')) || [];
+
+    // Adiciona o novo produto à lista
+    produtosSelecionados.push(produto);
+
+    // Atualiza o localStorage
+    localStorage.setItem('produtos-selecionados', JSON.stringify(produtosSelecionados));
+
+    // Atualiza a exibição do cesto imediatamente
+    mostrarCesto();
+    atualizarCustoTotal();
+}
+
+
 function removerProdutoDoCesto(index) {
     const produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados')) || [];
     
@@ -142,5 +135,102 @@ function removerProdutoDoCesto(index) {
 
     // Atualiza a exibição do cesto
     mostrarCesto();
+    atualizarCustoTotal();
 }
+
+function atualizarCustoTotal() {
+    // Recupera os produtos do localStorage
+    const produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados')) || [];
+
+    // Calcula o custo total
+    let custoTotal = produtosSelecionados.reduce((total, produto) => total + produto.price, 0);
+
+    // Seleciona a seção de compra existente
+    const compraSection = document.getElementById('compra');
+
+    // Limpa o conteúdo existente na seção
+    compraSection.innerHTML = '';
+
+    // Adiciona o custo total
+    const tituloCusto = document.createElement('h3');
+    tituloCusto.textContent = `Custo total: ${custoTotal.toFixed(2)} €`;
+    compraSection.appendChild(tituloCusto);
+
+    // Adiciona a checkbox "És estudante do DEISI?"
+    const descontoContainer = document.createElement('div');
+    descontoContainer.style.marginTop = '10px';
+
+    const checkboxAluno = document.createElement('input');
+    checkboxAluno.type = 'checkbox';
+    checkboxAluno.id = 'desconto-aluno';
+    checkboxAluno.onchange = aplicarDesconto; // Atualiza o custo ao marcar/desmarcar
+
+    const labelAluno = document.createElement('label');
+    labelAluno.htmlFor = 'desconto-aluno';
+    labelAluno.textContent = 'És estudante do DEISI?';
+
+    descontoContainer.appendChild(checkboxAluno);
+    descontoContainer.appendChild(labelAluno);
+    compraSection.appendChild(descontoContainer);
+
+    // Adiciona o campo para cupão de desconto
+    const cupaoContainer = document.createElement('div');
+    cupaoContainer.style.marginTop = '10px';
+
+    const labelCupao = document.createElement('label');
+    labelCupao.textContent = 'Cupão de desconto:';
+    labelCupao.style.marginRight = '10px';
+
+    const inputCupao = document.createElement('input');
+    inputCupao.type = 'text';
+    inputCupao.id = 'input-cupao';
+    inputCupao.style.padding = '5px';
+    inputCupao.style.border = '1px solid #ccc';
+    inputCupao.style.borderRadius = '4px';
+
+    cupaoContainer.appendChild(labelCupao);
+    cupaoContainer.appendChild(inputCupao);
+    compraSection.appendChild(cupaoContainer);
+
+    // Adiciona o botão de comprar
+    const botaoComprar = document.createElement('button');
+    botaoComprar.textContent = 'Comprar';
+    botaoComprar.style.marginTop = '15px';
+    botaoComprar.style.padding = '10px 20px';
+    botaoComprar.style.border = 'none';
+    botaoComprar.style.borderRadius = '4px';
+    botaoComprar.style.backgroundColor = '#4CAF50';
+    botaoComprar.style.color = 'white';
+    botaoComprar.style.cursor = 'pointer';
+
+    botaoComprar.onclick = () => {
+        alert('Compra finalizada!');
+    };
+
+    compraSection.appendChild(botaoComprar);
+}
+
+
+function aplicarDesconto() {
+    // Verifica se a checkbox está marcada
+    const isAluno = document.getElementById('desconto-aluno').checked;
+
+    // Recupera os produtos do localStorage
+    const produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados')) || [];
+
+    // Calcula o custo total
+    let custoTotal = produtosSelecionados.reduce((total, produto) => total + produto.price, 0);
+
+    // Aplica desconto de 10% se for aluno
+    if (isAluno) {
+        custoTotal *= 0.9;
+    }
+
+    // Atualiza o custo total na seção de compra
+    const compraSection = document.getElementById('compra');
+    compraSection.querySelector('h3').textContent = `Custo total: ${custoTotal.toFixed(2)} €`;
+}
+
+
+
 

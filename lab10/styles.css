@@ -304,6 +304,61 @@ h2 {
     margin-top: auto;
 }
 
+#compra {
+    background-color: #e0e0e0; /* Fundo cinza claro */
+    padding: 20px; /* Espaçamento interno */
+    border-radius: 8px; /* Cantos arredondados */
+    width: 100%; /* Largura total */
+    max-width: 500px; /* Largura máxima */
+    margin: 20px auto; /* Centraliza o conteúdo */
+    text-align: center; /* Alinha o texto no centro */
+    border: 1px solid #ccc; /* Borda fina */
+}
+
+#compra h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#compra div {
+    margin: 20px 0; /* Espaçamento vertical entre os elementos */
+}
+
+#compra label {
+    font-size: 14px;
+    color: #555;
+    margin-right: 10px;
+}
+
+#desconto-aluno {
+    margin-right: 5px; /* Espaçamento ao lado do checkbox */
+}
+
+#input-cupao {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 70%; /* Largura 70% do container */
+}
+
+#compra button {
+    background-color: #767976; /* Cor do fundo do botão */
+    color: white; /* Cor do texto */
+    padding: 10px 20px; /* Espaçamento interno */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%; /* Botão com largura total */
+    font-size: px;
+}
+
+#compra button:hover {
+    background-color: #b8bdb9; /* Tom de verde mais escuro quando passa o mouse */
+}
+
+
 
 
 
