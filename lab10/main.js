@@ -11,8 +11,12 @@ fetch('https://deisishop.pythonanywhere.com/products/')
 if (!localStorage.getItem('produtos-selecionados')) {
     localStorage.setItem('produtos-selecionados', JSON.stringify([]));
 }
+// Carrega todos os produtos ao carregar a página
+window.onload = () => {
+    criarProduto(produtos);
+    atualizarCustoTotal();
+};
 
-atualizarCustoTotal();
 
 function criarProduto(produto) {
     // Cria o elemento <article>
@@ -230,6 +234,23 @@ function aplicarDesconto() {
     const compraSection = document.getElementById('compra');
     compraSection.querySelector('h3').textContent = `Custo total: ${custoTotal.toFixed(2)} €`;
 }
+
+function filtrarProdutosPorCategoria() {
+    const categoriaSelecionada = document.getElementById('categoriaSelect').value;
+    
+    // Se a categoria selecionada for "todos", exibe todos os produtos
+    const produtosFiltrados = categoriaSelecionada === "todos" ? produtos : produtos.filter(produto => produto.category === categoriaSelecionada);
+    
+    criarProduto(produtosFiltrados);
+}
+
+// Adiciona um evento para atualizar os produtos filtrados sempre que a categoria for alterada
+document.getElementById('categoriaSelect').addEventListener('change', filtrarProdutosPorCategoria);
+
+
+
+
+
 
 
 

@@ -321,10 +321,6 @@ h2 {
     margin-bottom: 10px;
 }
 
-#compra div {
-    margin: 20px 0; /* Espaçamento vertical entre os elementos */
-}
-
 #compra label {
     font-size: 14px;
     color: #555;
@@ -354,11 +350,41 @@ h2 {
     font-size: px;
 }
 
+
 #compra button:hover {
     background-color: #b8bdb9; /* Tom de verde mais escuro quando passa o mouse */
 }
 
 
+label {
+    margin-right: 10px;
+    font-weight: bold;
+}
 
+select, input[type="text"] {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 20px;
+}
 
+/* Organizar os filtros em linha */
+label, select, input[type="text"] {
+    display: inline-block;
+    vertical-align: middle; /* Alinha os itens ao centro */
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 768px) {
+    label, select, input[type="text"] {
+        display: block;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    label {
+        margin-bottom: 5px;
+    }
+}
 
