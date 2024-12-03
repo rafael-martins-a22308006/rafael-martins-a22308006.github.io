@@ -48,6 +48,7 @@ function criarProduto(produto) {
         
         // Guarda a lista de volta ao localStorage
         localStorage.setItem('produtos-selecionados', JSON.stringify(produtosSelecionados));
+        adicionarAoCesto(produto);
         
     });
     
@@ -114,7 +115,21 @@ function mostrarCesto() {
         artigo.appendChild(botaoRemover);
 
         cestoContainer.appendChild(artigo);
-    });
+    })
+
+    function adicionarAoCesto(produto) {
+        // Recupera os produtos já armazenados no localStorage
+        const produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados')) || [];
+    
+        // Adiciona o novo produto à lista
+        produtosSelecionados.push(produto);
+    
+        // Atualiza o localStorage
+        localStorage.setItem('produtos-selecionados', JSON.stringify(produtosSelecionados));
+    
+        // Atualiza a exibição do cesto imediatamente
+        mostrarCesto();
+    }
 }
 function removerProdutoDoCesto(index) {
     const produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados')) || [];
