@@ -104,7 +104,7 @@ nav ul li a:hover {
     justify-content: center; /* Centraliza os itens no contêiner */
     padding: 20px;
     margin: 0 auto; /* Centraliza horizontalmente o contêiner */
-    max-width: 1200px; /* Limita a largura máxima *m/
+    max-width: 1200px; 
 }
 
 #produtos > article {
