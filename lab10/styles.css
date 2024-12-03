@@ -97,6 +97,22 @@ nav ul li a:hover {
     margin: 10px 0;
 }
 
+#produtos {
+    display: grid; /* Ativa o grid layout */
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas de tamanhos iguais */
+    gap: 20px; /* Espaço entre os itens */
+    padding: 20px;
+}
+
+.produto {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* Botões */
 button {
     background: linear-gradient(to bottom, #007bff, #0056b3); 
