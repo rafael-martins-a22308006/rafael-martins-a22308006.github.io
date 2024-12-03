@@ -21,6 +21,15 @@ header h1, footer p {
     margin: 0;
 }
 
+h2 {
+    text-align: center; /* Centraliza o texto */
+    margin-top: 20px; /* Espaçamento no topo */
+    margin-bottom: 30px; /* Espaçamento entre o título e os produtos */
+    font-size: 2rem; /* Tamanho maior para o título */
+    font-weight: bold; /* Negrito */
+    color: #d4d1d1; /* Cor do texto */
+}
+
 /* Navegação */
 nav ul {
     list-style: none;
