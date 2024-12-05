@@ -316,7 +316,7 @@ function finalizarCompra() {
     const isAluno = document.getElementById('desconto-aluno').checked;
 
     // Recupera o valor do cupão de desconto
-    const cupao = document.getElementById('input-cupao').value.trim();
+    const cupao = document.getElementById('inpuCupao').value.trim();
 
     // Cria um array com os IDs dos produtos
     const produtoIds = produtosSelecionados.map(produto => produto.id);
@@ -360,7 +360,7 @@ function finalizarCompra() {
 
         // Adiciona o valor total com descontos
         const totalComDescontos = document.createElement('p');
-        totalComDescontos.innerHTML = `<strong>Total com Descontos:</strong> ${resultado.totalCost.toFixed(2)} €`;
+        totalComDescontos.innerHTML = `<strong>Total com Descontos:</strong> ${custoTotal = produtosSelecionados.reduce((total, produto) => total + produto.price, 0)} €`;
         compraSection.appendChild(totalComDescontos);
 
         // Limpa o carrinho local
