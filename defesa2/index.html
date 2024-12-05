@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Online</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Loja</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#cesto">Carrinho</a></li>
+        <li><a href="#compra">Finalizar compra</a></li>
+    </ul>
+</nav>
+<h2>Selecione os seus produtos</h2>
+<main>
+    <section id="produtos">
+      
+        <section id="filtros">
+            <label >Filtrar</label>
+            <select id="categoriaSelect">
+              <option value="todos">Todos os Produtos</option>
+              <option value="T-shirts">T-shirts</option>
+              <option value="Canecas">Canecas</option>
+              <option value="Meias">Meias</option>
+            </select>
+        
+        <label >Ordenar</label>
+        <select id="ordenarSelect">
+            <option value="preco-asc">Preço Crescente</option>
+            <option value="preco-desc">Preço Decrescente</option>
+        </select>
+        
+        <label for="searchInput">Procurar</label>
+        <input type="text" id="searchInput" placeholder="Pesquisar..."></section>
+        
+        <ul id="produtos-lista"></ul>
+
+    </section>
+    
+    <section id="cesto">
+        <h2>Cesto</h2>
+    </section>
+
+    <section id="compra">
+        
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Minha Loja Online</p>
+</footer>
+
+
+<script src="main.js"></script>
+</body>
+</html>
