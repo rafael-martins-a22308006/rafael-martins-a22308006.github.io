@@ -21,27 +21,31 @@
 </nav>
 <h2>Selecione os seus produtos</h2>
 <main>
+    <section id="filtros">
+        <label >Filtrar</label>
+        <select id="categoriaSelect">
+          <option value="todos">Todos os Produtos</option>
+          <option value="T-shirts">T-shirts</option>
+          <option value="Canecas">Canecas</option>
+          <option value="Meias">Meias</option>
+        </select>
+    
+    <label >Ordenar</label>
+    <select id="ordenarSelect">
+        <option value="preco-asc">Preço Crescente</option>
+        <option value="preco-desc">Preço Decrescente</option>
+    </select>
+    
+    <label for="searchInput">Procurar</label>
+    <input type="text" id="searchInput" placeholder="Pesquisar..."></section>
+
+    <button id="btt"> menos info </button>
+    
+    <ul id="produtos-lista"></ul>
+    
     <section id="produtos">
       
-        <section id="filtros">
-            <label >Filtrar</label>
-            <select id="categoriaSelect">
-              <option value="todos">Todos os Produtos</option>
-              <option value="T-shirts">T-shirts</option>
-              <option value="Canecas">Canecas</option>
-              <option value="Meias">Meias</option>
-            </select>
         
-        <label >Ordenar</label>
-        <select id="ordenarSelect">
-            <option value="preco-asc">Preço Crescente</option>
-            <option value="preco-desc">Preço Decrescente</option>
-        </select>
-        
-        <label for="searchInput">Procurar</label>
-        <input type="text" id="searchInput" placeholder="Pesquisar..."></section>
-        
-        <ul id="produtos-lista"></ul>
 
     </section>
     
@@ -58,7 +62,7 @@
     <p>&copy; 2024 Minha Loja Online</p>
 </footer>
 
-
+<script src="produtos.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

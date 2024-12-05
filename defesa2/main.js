@@ -18,7 +18,7 @@ window.onload = () => {
     if (produtos.length > 0) {
         carregarProdutos(produtos); 
     }
-    criarProduto(produtos);
+    
     atualizarCustoTotal();
 };
 
@@ -56,6 +56,43 @@ function criarProduto(produto) {
     artigo.appendChild(titulo);
     artigo.appendChild(imagem);
     artigo.appendChild(descricao);
+    artigo.appendChild(preco);
+    artigo.appendChild(botaoAdicionar);
+    
+    // Retorna o <article> criado
+    return artigo;
+}
+
+function criarProdutoSemDescricao(produto) {
+    // Cria o elemento <article>
+
+    const artigo = document.createElement('article');
+    
+    // Cria o título do produto (<h2>)
+    const titulo = document.createElement('h2');
+    titulo.textContent = produto.title; // O título já está correto como 'title'
+    
+    // Verifica se a imagem está presente e adiciona
+    const imagem = document.createElement('img');
+    imagem.src = produto.image ? produto.image : 'default-image.jpg'; // Atribui uma imagem padrão caso não tenha
+    imagem.alt = produto.title;
+    
+    // Cria o preço do produto (<span>) usando 'price' conforme sua API
+    const preco = document.createElement('span');
+    preco.textContent = produto.price ? `Preço: ${produto.price}€` : 'Preço não disponível'; // Usando 'price' da API
+    
+    // Cria o botão "+ Adicionar ao cesto"
+    const botaoAdicionar = document.createElement('button');
+    botaoAdicionar.textContent = '+ Adicionar ao cesto';
+
+    // Adiciona o evento ao botão
+    botaoAdicionar.addEventListener('click', () => {
+        adicionarAoCesto(produto);
+    });
+    
+    // Adiciona os elementos ao <article>
+    artigo.appendChild(titulo);
+    artigo.appendChild(imagem);
     artigo.appendChild(preco);
     artigo.appendChild(botaoAdicionar);
     
@@ -113,8 +150,35 @@ function mostrarCesto() {
 
         cestoContainer.appendChild(artigo);
     })
+    const btt=document.createElement('button');
+    btt.textContent='remover';
+    btt.onclick=()=>removerTudoProdutoDoCesto();
+    cestoContainer.appendChild(btt);
    
 }
+
+function carregarProdutosDescricao(produtos) {
+    // Selecione o elemento pai onde os artigos serão inseridos
+    const container = document.getElementById('produtos');
+    container.innerHTML="";
+    // Percorre a lista de produtos com forEach
+    produtos.forEach((produto) => {
+        // Cria o artigo para o produto
+        const artigo = criarProdutoSemDescricao(produto);
+        
+        // Adiciona o artigo no elemento pai
+        container.appendChild(artigo);
+       
+    });
+    mostrarCesto();
+}
+
+    const btt = document.getElementById('btt');
+    btt.onclick=()=>{
+        carregarProdutosDescricao(produtos);
+    };
+    
+
 
 function adicionarAoCesto(produto) {
     // Recupera os produtos já armazenados no localStorage
@@ -137,6 +201,22 @@ function removerProdutoDoCesto(index) {
     
     // Remove o produto do array pelo índice
     produtosSelecionados.splice(index, 1);
+
+    // Atualiza o localStorage
+    localStorage.setItem('produtos-selecionados', JSON.stringify(produtosSelecionados));
+
+    // Atualiza a exibição do cesto
+    mostrarCesto();
+    atualizarCustoTotal();
+}
+
+
+
+function removerTudoProdutoDoCesto() {
+    const produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados')) || [];
+    
+    // Remove o produto do array pelo índice
+    produtosSelecionados.splice(produtosSelecionados);
 
     // Atualiza o localStorage
     localStorage.setItem('produtos-selecionados', JSON.stringify(produtosSelecionados));
@@ -216,6 +296,19 @@ function atualizarCustoTotal() {
         finalizarCompra();
     };
 
+    const labelneome= document.createElement('label');
+    labelneome.textContent = 'nome:';
+    labelneome.style.marginRight = '10px';
+    cupaoContainer.appendChild(labelneome);
+
+    const texto = document.createElement('input');
+    texto.type = 'text';
+    texto.id = 'texto';
+    texto.style.padding = '5px';
+    texto.style.border = '1px solid #ccc';
+    texto.style.borderRadius = '4px';
+
+compraSection.appendChild(texto);
     compraSection.appendChild(botaoComprar);
 }
 
@@ -319,6 +412,8 @@ function finalizarCompra() {
     // Recupera o valor do cupão de desconto
     const cupao = document.getElementById('inpuCupao').value.trim();
 
+    const texto = document.getElementById('texto').value.trim();
+
     // Cria um array com os IDs dos produtos
     const produtoIds = produtosSelecionados.map(produto => produto.id);
 
@@ -332,7 +427,8 @@ function finalizarCompra() {
     const dadosCompra = {
         products: produtoIds,
         student: isAluno,
-        coupon: cupao || null
+        coupon: cupao || null,
+        name:texto
     };
 
     // Faz uma requisição ao servidor para processar a compra
@@ -358,6 +454,11 @@ function finalizarCompra() {
         const referenciaPagamento = document.createElement('p');
         referenciaPagamento.innerHTML = `<strong>Referência de Pagamento:</strong> ${resultado.reference}`;
         compraSection.appendChild(referenciaPagamento);
+
+        const message = document.createElement('p');
+        message.innerHTML = `<strong>messagem:</strong> ${resultado.message}`;
+        compraSection.appendChild(message);
+
 
         // Adiciona o valor total com descontos
         const totalComDescontos = document.createElement('p');
@@ -424,10 +525,5 @@ fetch(urlCategorias)
         adicionarEventosFiltro();
     })
     .catch(error => console.error('Erro ao carregar as categorias:', error));
-
-   
-
-
-
 
 
