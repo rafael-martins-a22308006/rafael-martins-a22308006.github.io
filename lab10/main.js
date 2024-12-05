@@ -267,7 +267,7 @@ function realizarCompra() {
     const estudante = estudanteCheckbox.checked;
     const cupao = cupaoInput.value.trim();
 
-    fetch(`${API_URL}/buy/`, {
+    fetch(`https://deisishop.pythonanywhere.com/buy/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -335,7 +335,7 @@ function finalizarCompra() {
     };
 
     // Faz uma requisição ao servidor para processar a compra
-    fetch(`${API_URL}/buy/`, {
+    fetch('https://deisishop.pythonanywhere.com/buy/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dadosCompra)
