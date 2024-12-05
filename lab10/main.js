@@ -1,9 +1,10 @@
 
-fetch('https://deisishop.pythonanywhere.com/products/')
+
+let url='https://deisishop.pythonanywhere.com/products/';
+fetch(url)
 .then(Response=>Response.json())
 .then(data=>{let produtos = [];
     carregarProdutos(data);
-    produtos = data;
 })
 .catch(error=> console.error('Error',error));
 
@@ -35,17 +36,12 @@ function criarProduto(produto) {
     
     // Cria a descrição do produto (<p>) usando 'description' conforme sua API
     const descricao = document.createElement('p');
-    descricao.textContent = produto.description ? produto.description : 'Descrição não disponível'; 
+    descricao.textContent = produto.description ? produto.description : 'Descrição não disponível'; // Usando 'description' da API
     
-    
+    // Cria o preço do produto (<span>) usando 'price' conforme sua API
     const preco = document.createElement('span');
-    preco.textContent = produto.price ? `Preço: ${produto.price}€` : 'Preço não disponível'; 
+    preco.textContent = produto.price ? `Preço: ${produto.price}€` : 'Preço não disponível'; // Usando 'price' da API
     
-    const rate = document.createElement('span');
-    rate.textContent = produto.rating && produto.rating.rate  
-    rate.style.display = 'block'; 
-    rate.style.marginTop = '5px';
-
     // Cria o botão "+ Adicionar ao cesto"
     const botaoAdicionar = document.createElement('button');
     botaoAdicionar.textContent = '+ Adicionar ao cesto';
@@ -59,7 +55,6 @@ function criarProduto(produto) {
     artigo.appendChild(titulo);
     artigo.appendChild(imagem);
     artigo.appendChild(descricao);
-    artigo.appendChild(rate);
     artigo.appendChild(preco);
     artigo.appendChild(botaoAdicionar);
     
@@ -70,7 +65,7 @@ function criarProduto(produto) {
 function carregarProdutos(produtos) {
     // Selecione o elemento pai onde os artigos serão inseridos
     const container = document.getElementById('produtos');
-    
+   
     // Percorre a lista de produtos com forEach
     produtos.forEach((produto) => {
         // Cria o artigo para o produto
@@ -104,8 +99,6 @@ function mostrarCesto() {
 
         const preco = document.createElement('span');
         preco.textContent = `Preço: ${produto.price}€`;
-
-       
 
         const botaoRemover = document.createElement('button');
         botaoRemover.textContent = '+ Remover do carrinho';
@@ -197,7 +190,7 @@ function atualizarCustoTotal() {
 
     const inputCupao = document.createElement('input');
     inputCupao.type = 'text';
-    inputCupao.id = 'input-cupao';
+    inputCupao.id = 'inpuCupao';
     inputCupao.style.padding = '5px';
     inputCupao.style.border = '1px solid #ccc';
     inputCupao.style.borderRadius = '4px';
@@ -217,157 +210,37 @@ function atualizarCustoTotal() {
     botaoComprar.style.color = 'white';
     botaoComprar.style.cursor = 'pointer';
 
-    // Desabilitar o botão se o cesto estiver vazio
-    if (produtosSelecionados.length === 0) {
-        botaoComprar.disabled = true;
-        botaoComprar.style.backgroundColor = '#ccc'; // Opacidade para indicar que o botão está desativado
-    } else {
-        botaoComprar.disabled = false;
-        botaoComprar.style.backgroundColor = '#4CAF50'; // Restaurar a cor do botão
-    }
-
-    // Função que finaliza a compra e mostra o valor final e referência
-    botaoComprar.addEventListener('click', () => {
-        // Aplica o desconto se necessário
-        aplicarDesconto();
-
-        // Exibe o valor final a pagar
-        const valorFinal = document.getElementById('valor-final');
-        valorFinal.textContent = `Valor final a pagar (com eventuais descontos): ${custoTotal.toFixed(2)} €`;
-
-        // Cria uma referência de pagamento dinâmica
-        const referenciaPagamento = document.getElementById('referencia-pagamento');
-        const referencia = gerarReferenciaPagamento();  // Função para gerar a referência
-        referenciaPagamento.textContent = `Referência de pagamento: ${referencia} €`;
-
-        // Torna a referência visível apenas depois da compra
-        referenciaPagamento.style.display = 'block'; // Exibe a referência de pagamento
-    });
-
-    compraSection.appendChild(botaoComprar);
-
-    // Exibe o campo do valor final na seção
-    const valorFinalContainer = document.createElement('div');
-    valorFinalContainer.style.marginTop = '20px';
-
-    const valorFinal = document.createElement('p');
-    valorFinal.id = 'valor-final';
-    valorFinal.textContent = `Valor final a pagar (com eventuais descontos): ${custoTotal.toFixed(2)} €`;
-    valorFinalContainer.appendChild(valorFinal);
-
-    // Referência de pagamento inicialmente escondida
-    const referenciaPagamento = document.createElement('p');
-    referenciaPagamento.id = 'referencia-pagamento';
-    referenciaPagamento.style.display = 'none';  // Inicialmente escondido
-    referenciaPagamento.textContent = ''; // Referência será preenchida após a compra
-    valorFinalContainer.appendChild(referenciaPagamento);
-
-    compraSection.appendChild(valorFinalContainer);
-}
-
-// Função para gerar uma referência de pagamento única
-function gerarReferenciaPagamento() {
-    const data = new Date();
-    const referencia = `${data.getFullYear()}${(data.getMonth() + 1).toString().padStart(2, '0')}-${Math.floor(Math.random() * 10000)}`;
-    return referencia;
-}
-
-
-
-function aplicarDesconto() {
-    // Verifica se a checkbox está marcada
-    const isAluno = document.getElementById('desconto-aluno').checked;
-
-    // Recupera os produtos do localStorage
-    const produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados')) || [];
-
-    // Calcula o custo total
-    let custoTotal = produtosSelecionados.reduce((total, produto) => total + produto.price, 0);
-
-    // Aplica desconto de 10% se for aluno
-    if (isAluno) {
-        custoTotal *= 0.9;
-    }
-
-    // Exibe o custo total antes de enviar para o servidor
-    console.log(`Custo total antes do envio para a API: ${custoTotal}`);
-
-    // Envia os dados para o endpoint /buy usando o método POST
-    const urlCompra = 'https://deisishop.pythonanywhere.com/buy/'; // Substitua pelo URL da sua API
-
-    // Prepara os dados para enviar
-    const produtoIds = produtosSelecionados.map(produto => produto.id);
-    const cupao = document.getElementById('input-cupao').value.trim(); // Captura o valor do cupão de desconto, se existir
-
-    const dadosCompra = {
-        produtos: produtoIds,
-        estudante: isAluno,
-        cupao: cupao || null
+    botaoComprar.onclick = () => {
+    
+        finalizarCompra();
     };
 
-    // Realiza o pedido POST para finalizar a compra
-    fetch(urlCompra, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dadosCompra),
-    })
-    .then(response => {
-        // Verifique se a resposta foi ok
-        if (!response.ok) {
-            throw new Error(`Erro ao fazer a compra: ${response.statusText}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        
-
-        // Verifica se a resposta foi bem-sucedida
-        if (data.success) {
-            // Atualiza a referência de pagamento e o valor final na página
-
-            const compraSection = document.getElementById('compra');
-            
-            // Cria ou atualiza a referência de pagamento
-            let referenciaPagamento = compraSection.querySelector('.referencia-pagamento');
-            if (!referenciaPagamento) {
-                referenciaPagamento = document.createElement('p');
-                referenciaPagamento.classList.add('referencia-pagamento');
-                compraSection.appendChild(referenciaPagamento);
-            }
-            referenciaPagamento.textContent = `Referência para pagamento: ${data.referencia}`;
-
-            // Atualiza o custo total na seção de compra
-            let tituloCusto = compraSection.querySelector('.custo-total');
-            if (!tituloCusto) {
-                tituloCusto = document.createElement('h3');
-                tituloCusto.classList.add('custo-total');
-                compraSection.appendChild(tituloCusto);
-            }
-            tituloCusto.textContent = `Custo total: ${data.valorFinal.toFixed(2)} €`;
-        } else {
-            // Caso a resposta não seja bem-sucedida, exibe a mensagem de erro
-            alert('Erro na compra: ' + data.message);
-        }
-    })
-    .catch(error => {
-       
-        alert('Erro ao processar a compra.');
-    });
+    compraSection.appendChild(botaoComprar);
 }
 
-function filtrarProdutosPorCategoria() {
+
+async function filtrarProdutosPorCategoria() {
     const categoriaSelecionada = document.getElementById('categoriaSelect').value;
 
-    // Filtra os produtos pela categoria
-    const produtosFiltrados = categoriaSelecionada === "todos" 
-    ? produtos 
-    : produtos.filter(produto => produto.category.toLowerCase() === categoriaSelecionada.toLowerCase());
+    try {
+        // Faz o fetch dos produtos
+        const response = await fetch(url);
+        const produtos = await response.json();
 
-    // Carrega os produtos filtrados
-    carregarProdutos(produtosFiltrados);
+        // Filtra os produtos pela categoria
+        let produtosFiltrados = produtos;
+        if (categoriaSelecionada && categoriaSelecionada !== "todos") {
+            produtosFiltrados = produtosFiltrados.filter(produto => produto.category === categoriaSelecionada);
+        }
+
+        // Carrega os produtos filtrados
+        carregarProdutos(produtosFiltrados);
+
+    } catch (error) {
+        console.error("Erro ao carregar produtos:", error);
+    }
 }
+
 
 // Adiciona um evento para atualizar os produtos filtrados sempre que a categoria for alterada
 document.getElementById('categoriaSelect').addEventListener('change', filtrarProdutosPorCategoria);
@@ -390,6 +263,51 @@ function ordenarProdutosPorPreco() {
 document.getElementById('ordenarSelect').addEventListener('change', ordenarProdutosPorPreco);
 
 
+function realizarCompra() {
+    const estudante = estudanteCheckbox.checked;
+    const cupao = cupaoInput.value.trim();
+
+    fetch(`${API_URL}/buy/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            products: Object.keys(cesto).map(id => parseInt(id)),
+            student: estudante,
+            coupon: cupao || null
+        })
+    })
+    .then(response => response.json())
+    .then(resultado => {
+        resumoCompra.innerHTML = `
+            <p><strong>Referência de Pagamento:</strong> ${resultado.reference}</p>
+            <p><strong>Total com Descontos:</strong> ${resultado.totalCost} €</p>
+        `;
+        
+        cesto = {};
+        mostrarCesto();
+      
+    });
+}
+
+function aplicarDesconto() {
+    // Verifica se a checkbox está marcada
+    const isAluno = document.getElementById('desconto-aluno').checked;
+
+    // Recupera os produtos do localStorage
+    const produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados')) || [];
+
+    // Calcula o custo total
+    let custoTotal = produtosSelecionados.reduce((total, produto) => total + produto.price, 0);
+
+    // Aplica desconto de 10% se for aluno
+    if (isAluno) {
+        custoTotal *= 0.9;
+    }
+
+    // Atualiza o custo total na seção de compra
+    const compraSection = document.getElementById('compra');
+    compraSection.querySelector('h3').textContent = `Custo total: ${custoTotal.toFixed(2)} €`;
+}   
 function finalizarCompra() {
     // Recupera os produtos do localStorage
     const produtosSelecionados = JSON.parse(localStorage.getItem('produtos-selecionados')) || [];
@@ -398,40 +316,64 @@ function finalizarCompra() {
     const isAluno = document.getElementById('desconto-aluno').checked;
 
     // Recupera o valor do cupão de desconto
-    const cupao = document.getElementById('input-cupao').value;
+    const cupao = document.getElementById('input-cupao').value.trim();
 
     // Cria um array com os IDs dos produtos
     const produtoIds = produtosSelecionados.map(produto => produto.id);
 
+    // Verifica se existem produtos selecionados
+    if (produtoIds.length === 0) {
+        alert('Nenhum produto selecionado! Adicione produtos ao carrinho para finalizar a compra.');
+        return;
+    }
+
     // Cria o objeto com os dados para enviar
     const dadosCompra = {
-        produtoIds: produtoIds,
-        isAluno: isAluno,
-        cupao: cupao
+        products: produtoIds,
+        student: isAluno,
+        coupon: cupao || null
     };
 
-    // Simulando a resposta da API com um valor fixo e referência
-    const resposta = {
-        valorFinal: 30.50,  // Simulando o valor final após descontos
-        referenciaPagamento: '201124-0052'  // Exemplo de referência de pagamento
-    };
+    // Faz uma requisição ao servidor para processar a compra
+    fetch(`${API_URL}/buy/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dadosCompra)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao processar a compra. Tente novamente.');
+        }
+        return response.json(); // Converte a resposta em JSON
+    })
+    .then(resultado => {
+        // Atualiza a seção de compra com os valores retornados
+        const compraSection = document.getElementById('compra');
 
-    // Atualiza a seção de compra com o valor final e a referência
-    const compraSection = document.getElementById('compra');
+        // Limpa a seção de compra
+        compraSection.innerHTML = '';
 
-    // Limpa a seção de compra
-    compraSection.innerHTML = '';
+        // Adiciona a referência de pagamento
+        const referenciaPagamento = document.createElement('p');
+        referenciaPagamento.innerHTML = `<strong>Referência de Pagamento:</strong> ${resultado.reference}`;
+        compraSection.appendChild(referenciaPagamento);
 
-    // Cria e adiciona o valor final a pagar
-    const tituloValorFinal = document.createElement('h3');
-    tituloValorFinal.textContent = `Valor final a pagar (com eventuais descontos): ${resposta.valorFinal.toFixed(2)} €`;
-    compraSection.appendChild(tituloValorFinal);
+        // Adiciona o valor total com descontos
+        const totalComDescontos = document.createElement('p');
+        totalComDescontos.innerHTML = `<strong>Total com Descontos:</strong> ${resultado.totalCost.toFixed(2)} €`;
+        compraSection.appendChild(totalComDescontos);
 
-    // Cria e adiciona a referência de pagamento
-    const referenciaPagamento = document.createElement('p');
-    referenciaPagamento.textContent = `Referência de pagamento: ${resposta.referenciaPagamento}`;
-    compraSection.appendChild(referenciaPagamento);
+        // Limpa o carrinho local
+        localStorage.removeItem('produtos-selecionados');
+        alert('Compra finalizada com sucesso!');
+    })
+    .catch(error => {
+        // Trata erros na requisição
+        console.error(error);
+        alert('Ocorreu um erro ao finalizar a compra. Por favor, tente novamente mais tarde.');
+    });
 }
+
 
 
 
